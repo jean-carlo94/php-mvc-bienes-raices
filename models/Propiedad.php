@@ -1,13 +1,11 @@
 <?php
+declare ( strict_types = 1);
 
 namespace Model;
 
-class Propiedad extends ActiveRecord {
-
-    // Base DE DATOS
+class Propiedad extends ActiveRecord{
     protected static $tabla = 'propiedades';
-    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedorId'];
-
+    protected static $columnasDB = ['id','titulo','precio','imagen','descripcion','habitaciones','wc','estacionamiento','creado','vendedores_id'];
 
     public $id;
     public $titulo;
@@ -18,7 +16,7 @@ class Propiedad extends ActiveRecord {
     public $wc;
     public $estacionamiento;
     public $creado;
-    public $vendedorId;
+    public $vendedores_id;
 
     public function __construct($args = [])
     {
@@ -31,49 +29,33 @@ class Propiedad extends ActiveRecord {
         $this->wc = $args['wc'] ?? '';
         $this->estacionamiento = $args['estacionamiento'] ?? '';
         $this->creado = date('Y/m/d');
-        $this->vendedorId = $args['vendedorId'] ?? '';
+        $this->vendedores_id = $args['vendedores_id'] ?? '';
     }
-
-    public function validar() {
-
-        if(!$this->titulo) {
-            self::$errores[] = "Debes añadir un titulo";
+    public function validar(): array{
+        if(!$this->titulo){
+            self::$errores[]="Debes añadir un titulo";
         }
-
-        if(!$this->precio) {
-            self::$errores[] = 'El Precio es Obligatorio';
+        if(!$this->precio){
+            self::$errores[]="Debes añadir un precio";
         }
-
-        if( strlen( $this->descripcion ) < 50 ) {
-            self::$errores[] = 'La descripción es obligatoria y debe tener al menos 50 caracteres';
+        if(strlen($this->descripcion) < 50){
+            self::$errores[]="Debes añadir un descripcion de 50 caracteres";
         }
-
-        if(!$this->habitaciones) {
-            self::$errores[] = 'El Número de habitaciones es obligatorio';
+        if(!$this->habitaciones){
+            self::$errores[]="Debes añadir un habitaciones";
         }
-        
-        if(!$this->wc) {
-            self::$errores[] = 'El Número de Baños es obligatorio';
+        if(!$this->wc){
+            self::$errores[]="Debes añadir un wc";
         }
-
-        if(!$this->estacionamiento) {
-            self::$errores[] = 'El Número de lugares de Estacionamiento es obligatorio';
+        if(!$this->estacionamiento){
+            self::$errores[]="Debes añadir un estacionamiento";
         }
-        
-        if(!$this->vendedorId) {
-            self::$errores[] = 'Elige un vendedor';
+        if(!$this->vendedores_id){
+            self::$errores[]="Debes añadir un vendedor";
         }
-
-        if(!$this->id )  {
-            $this->validarImagen();
+        if(!$this->imagen){
+            self::$errores[]="La Imagen de la Propiedad Es Obligatoria";
         }
         return self::$errores;
     }
-
-    public function validarImagen() {
-        if(!$this->imagen ) {
-            self::$errores[] = 'La Imagen es Obligatoria';
-        }
-    }
-
 }

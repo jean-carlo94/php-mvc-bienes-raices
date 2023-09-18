@@ -1,11 +1,13 @@
-<?php 
+<?php
+declare ( strict_types = 1);
+ini_set('display_errors', 1);
 
 require 'funciones.php';
-require 'config/database.php';
-require __DIR__ . '/../vendor/autoload.php';
+require 'config/databse.php';
+require __DIR__.'/../vendor/autoload.php';
 
-// Conectarnos a la base de datos
+//Conectar a la Base de datos
 $db = conectarDB();
-
 use Model\ActiveRecord;
+
 ActiveRecord::setDB($db);

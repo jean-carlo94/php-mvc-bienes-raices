@@ -1,92 +1,95 @@
 <?php
-
 namespace Controllers;
-
 use MVC\Router;
 use Model\Vendedor;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class VendedorController {
-
-    public static function index(Router $router) {
-        $vendedores = Vendedor::all();
-
-        // Muestra mensaje condicional
-        $resultado = $_GET['resultado'] ?? null;
-
-        $router->render('vendedores/index', [
-            'vendedores' => $vendedores,
-            'resultado' => $resultado
-        ]);
-    }
-
-    public static function crear(Router $router) {
+    public static function crear(Router $router){
+        $vendedor = new Vendedor();
         $errores = Vendedor::getErrores();
-        $vendedor = new Vendedor;
 
-        // Ejecutar el código después de que el usuario envia el formulario
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $vendedor = new Vendedor($_POST);
 
-            /** Crea una nueva instancia */
-            $vendedor = new Vendedor($_POST['vendedor']);
-
-            // Validar
+            if($_FILES['imagen']['tmp_name']){
+                //Define la extensión para el archivo
+                if ($_FILES['imagen']['type'] === 'image/jpeg') {
+                    $exten = '.jpg';
+                }else{
+                    $exten = '.png';
+                };
+                // Generar nombre único ** Aquí fue donde encontré el problema
+                $nombreImagen = md5(uniqid(rand(),true)).$exten;
+                // Realiza un resize a la imagen con Intervention Image
+                $imagen = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+                $vendedor->setImagen($nombreImagen);
+            }
+            //Validar
             $errores = $vendedor->validar();
-
-
-            if(empty($errores)) {
-
-                // Guarda en la base de datos
-                $resultado = $vendedor->guardar();
-
-                if($resultado) {
-                    header('location: /vendedores');
+    
+            if(empty($errores)){
+                //Crear la carpeta para subir imagenes
+                if (!is_dir(CARPETA_IMAGENES)) {
+                    mkdir(CARPETA_IMAGENES);
                 }
+                //Guardar la imagen
+                $imagen->save(CARPETA_IMAGENES.$nombreImagen);
+                //Guardar en la base de datos
+                $resultado = $vendedor->guardar();
             }
         }
 
-        $router->render('vendedores/crear', [
-            'errores' => $errores,
-            'vendedor' => $vendedor
+        $router->render('vendedores/crear',[
+            'vendedor'=>$vendedor,
+            'errores'=>$errores
         ]);
     }
-
-    public static function actualizar(Router $router) {
+    public static function actualizar(Router $router){
+        $errores = Vendedor::getErrores();
         $id = validarORedireccionar('/admin');
-
-        // Obtener los datos de la propiedad
         $vendedor = Vendedor::find($id);
 
-        // Arreglo con mensajes de errores
-        $errores = Vendedor::getErrores();
-
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-                // Asignar los atributos
-                $args = $_POST['vendedor'];
-                $vendedor->sincronizar($args);
-
-                // Validación
-                $errores = $vendedor->validar();
-                
-                if(empty($errores)) {
-
-                    // Guarda en la base de datos
-                    $resultado = $vendedor->guardar();
-
-                    if($resultado) {
-                        header('location: /admin');
-                    }
-                }
+            $vendedor->sincronizar($_POST);
+            if($_FILES['imagen']['tmp_name']){
+                //Define la extensión para el archivo
+                if ($_FILES['imagen']['type'] === 'image/jpeg') {
+                    $exten = '.jpg';
+                }else{
+                    $exten = '.png';
+                };
+                // Generar nombre único ** Aquí fue donde encontré el problema
+                $nombreImagen = md5(uniqid(rand(),true)).$exten;
+                // Realiza un resize a la imagen con Intervention Image
+                $imagen = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+                $vendedor->setImagen($nombreImagen);
+                $imagen->save(CARPETA_IMAGENES.$nombreImagen);
+            }
+            
+            $vendedor->validar();
+            if(empty($errores)){
+                $resultado = $vendedor->guardar();
+            }
         }
-
-        $router->render('vendedores/actualizar', [
-            'vendedor' => $vendedor,
-            'errores' => $errores
+        $router->render('vendedores/actualizar',[
+            'vendedor'=>$vendedor,
+            'errores'=>$errores
         ]);
     }
+    public static function eliminar(){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $id = $_POST['id'];
+            $id = filter_var($id,FILTER_VALIDATE_INT);
 
-    public static function eliminar(Router $router) {
-
+            if($id){
+                $tipo = $_POST['tipo'];
+                if(validarTipoContenido($tipo)){
+                    $vendedor = Vendedor::find($id);
+                    $vendedor->eliminar();
+                }
+            }
+        }
     }
 }
