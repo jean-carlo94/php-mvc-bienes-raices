@@ -1,8 +1,7 @@
 <?php
 
-function conectarDB() : mysqli{
-	$user = getenv('USER');
-    $db = new mysqli('localhost', $user , $_ENV["PASS"] ,$_ENV["BD"] );
+function conectarDB() : mysqli{    
+    $db = new mysqli('localhost', $_ENV["USER_BD"], $_ENV["PASS_BD"] ,$_ENV["BD_NAME"] );
     if (!$db) {
         echo "no se conecto";
         exit;
