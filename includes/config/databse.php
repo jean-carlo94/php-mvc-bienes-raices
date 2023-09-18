@@ -1,7 +1,7 @@
 <?php
 
 function conectarDB() : mysqli{
-    $db = new mysqli('localhost','root','Taziturno1j@1586','bienesraces_crud');
+    $db = new mysqli('localhost','','','');
     if (!$db) {
         echo "no se conecto";
         exit;
