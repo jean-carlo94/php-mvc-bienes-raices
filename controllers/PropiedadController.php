@@ -25,16 +25,15 @@ class PropiedadController{
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $propiedad = new Propiedad($_POST);
-
             if($_FILES['imagen']['tmp_name']){
                 //Define la extensión para el archivo
                 if ($_FILES['imagen']['type'] === 'image/jpeg') {
-                    $exten = '.jpg';
+                    $ext = '.jpg';
                 }else{
-                    $exten = '.png';
+                    $ext = '.png';
                 };
                 // Generar nombre único ** Aquí fue donde encontré el problema
-                $nombreImagen = md5(uniqid(rand(),true)).$exten;
+                $nombreImagen = md5(uniqid(rand(),true)).$ext;
                 // Realiza un resize a la imagen con Intervention Image
                 $imagen = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
                 $propiedad->setImagen($nombreImagen);
@@ -70,14 +69,14 @@ class PropiedadController{
         
             $propiedad->sincronizar($_POST);    
             if($_FILES['imagen']['tmp_name']){
-                //Define la extensión para el archivo
+                //Define la extsión para el archivo
                 if ($_FILES['imagen']['type'] === 'image/jpeg') {
-                    $exten = '.jpg';
+                    $ext = '.jpg';
                 }else{
-                    $exten = '.png';
+                    $ext = '.png';
                 };
                 // Generar nombre único ** Aquí fue donde encontré el problema
-                $nombreImagen = md5(uniqid(rand(),true)).$exten;
+                $nombreImagen = md5(uniqid(rand(),true)).$ext;
                 // Realiza un resize a la imagen con Intervention Image
                 $imagen = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
                 $propiedad->setImagen($nombreImagen);
