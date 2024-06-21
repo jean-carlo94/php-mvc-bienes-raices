@@ -1,9 +1,9 @@
 <main class="contenedor seccion contenido-centrado">
     <h1>Guia para Blog</h1>
     <picture>
-        <source srcset="img/destacada.webp" type="image/webp">
-        <source srcset="img/destacada.jpeg" type="image/jpeg">
-        <img loading="lazy" src="img/destacada.jpg" alt="Casa tal destacasa"> 
+        <source srcset="public/img/destacada.webp" type="image/webp">
+        <source srcset="public/img/destacada.jpeg" type="image/jpeg">
+        <img loading="lazy" src="public/img/destacada.jpg" alt="Casa tal destacada"> 
     </picture>
     <p class="informacion-meta">Escruto el: <span>02/05/2021</span> por: <span>Admin</span></p>
     <div class="resumen-propiedad">

@@ -1,5 +1,5 @@
         <fieldset>
-            <legend>Informacion General</legend>
+            <legend>Información General</legend>
             <label for="titulo">Titulo</label>
             <input type="text" id="titulo" name="titulo" placeholder="Titulo propiedad" value="<?php echo s($propiedad->titulo); ?>">
             <label for="precio">Precio</label>
@@ -9,12 +9,12 @@
             <?php if($propiedad->imagen): ?>
                 <img src="/imagenes/<?php echo $propiedad->imagen;?>" class="imagen-small">
             <?php endif;?>
-            <label for="descripcion">Descripcion</label>
+            <label for="descripcion">Descripción</label>
             <textarea type="number" id="descripocion" name="descripcion"><?php echo s($propiedad->descripcion); ?></textarea>
         </fieldset>
 
         <fieldset>
-            <legend>Informacion de la propieadad</legend>
+            <legend>Información de la propiedad</legend>
             <label for="habitaciones">Habitaciones</label>
             <input type="number" id="habitaciones" name="habitaciones" placeholder="EJ: 3" min="1" max="9" value="<?php echo s($propiedad->habitaciones); ?>">
             <label for="wc">Baños</label>

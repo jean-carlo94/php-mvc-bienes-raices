@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  bienes-raices-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile.prod
+    image: bienes-raices-app
+    container_name: bienes-raices-app
+    restart: always # reiniciar el contenedor si se detiene
+    ports:
+      - "${PORT}:80"
+    volumes:
+     - ./LogsApache:/var/log/apache2

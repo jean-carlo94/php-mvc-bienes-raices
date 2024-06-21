@@ -6,15 +6,15 @@
 
             <ul class="iconos-caracteristicas">
                 <li>
-                    <img class="icono" loading="lazy" src="img/icono_wc.svg" alt="icono_wc">
+                    <img class="icono" loading="lazy" src="public/img/icono_wc.svg" alt="icono_wc">
                     <p><?php echo $propiedad->wc; ?></p>
                 </li>
                 <li>
-                    <img class="icono" loading="lazy" src="img/icono_estacionamiento.svg" alt="icono_estacionamiento">
+                    <img class="icono" loading="lazy" src="public/img/icono_estacionamiento.svg" alt="icono_estacionamiento">
                     <p><?php echo $propiedad->estacionamiento; ?></p>
                 </li>
                 <li>
-                    <img class="icono" loading="lazy" src="img/icono_dormitorio.svg" alt="icono_habitaciones">
+                    <img class="icono" loading="lazy" src="public/img/icono_dormitorio.svg" alt="icono_habitaciones">
                     <p><?php echo $propiedad->habitaciones; ?></p>
                 </li>
 

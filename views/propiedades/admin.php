@@ -1,5 +1,5 @@
 <main class="contenedor seccion">
-    <h1>Administrador de Bienes Raices</h1>
+    <h1>Administrador de Bienes Raíces</h1>
     <?php 
         if($resultado){
             $mensaje = mostarNotificacion(intval($resultado));
@@ -48,7 +48,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
-                    <th>Telefono</th>
+                    <th>Teléfono</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

@@ -7,16 +7,16 @@
             endif;
         ?>
         <picture>
-            <source srcset="img/destacada3.webp" type="image/webp">
-            <source srcset="img/destacada3.jpeg" type="image/jpeg">
-            <img loading="lazy" src="img/destacada3.jpg" alt="Imagen Contacto"> 
+            <source srcset="public/img/destacada3.webp" type="image/webp">
+            <source srcset="public/img/destacada3.jpeg" type="image/jpeg">
+            <img loading="lazy" src="public/img/destacada3.jpg" alt="Imagen Contacto"> 
         </picture>
 
         <h2>Llene el Formulario de Contacto</h2>
 
         <form class="formulario" action="/contacto" method="POST">
             <fieldset>
-                <legend>Informacion Personal</legend>
+                <legend>Información Personal</legend>
 
                 <label for="nombre">nombre</label>
                 <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required> 
@@ -26,7 +26,7 @@
             </fieldset>
 
             <fieldset>
-                <legend>Infomacion sobre la propiedad</legend>
+                <legend>Información sobre la propiedad</legend>
 
                 <label for="opciones">Vende o compra</label>
                 <select id="opciones" name="tipo" required>
@@ -42,12 +42,12 @@
             </fieldset>
 
             <fieldset>
-                <legend>Infomacion sobre la propiedad</legend>
+                <legend>Información sobre la propiedad</legend>
 
                 <p>Como desea ser contactado</p>
 
                 <div class="forma-contacto">
-                    <label for="contactar-telefono">Telefono</label>
+                    <label for="contactar-telefono">Teléfono</label>
                     <input name="contacto" name="contacto" type="radio" value="telefono" id="contactar-telefono" required>
 
                     <label for="contactar-email">Email</label>

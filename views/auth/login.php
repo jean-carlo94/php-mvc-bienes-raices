@@ -1,5 +1,5 @@
 <main class="contenedor seccion contenido-centrado">
-    <h1>Inicio Sesion</h1>
+    <h1>Inicio Sesión</h1>
     <?php foreach($errores as $error):?>
         <div class="alerta error">
             <?php echo $error?>
@@ -13,6 +13,6 @@
             <label for="password">Password</label>
             <input id="password" name="password" type="password" placeholder="Tu password" required> 
         </fieldset>
-        <input type="submit" value="Iniciar Sesion" class="boton boton-verde">
+        <input type="submit" value="Iniciar Sesión" class="boton boton-verde">
     </form>
 </main>

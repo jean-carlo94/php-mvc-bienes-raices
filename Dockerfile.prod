@@ -1,0 +1,30 @@
+FROM php:8.1-apache
+
+# Instalar dependencias necesarias
+RUN apt-get update && \
+    apt-get install -y \
+        libzip-dev \
+        unzip \
+        libfreetype6-dev \
+		libjpeg62-turbo-dev \
+		libpng-dev \
+	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
+	&& docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-install zip
+
+# Instalar Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Copiar los archivos a la ruta /var/www/html
+COPY . /var/www/html/
+
+# Crear la carpeta de logs y cambiar los permisos para que pueda escribir Apache
+RUN chown -R www-data:www-data /var/log/apache2 && \
+    chmod -R 755 /var/log/apache2
+# Habilitar mod_rewrite para que Apache reconozca el archivo .htaccess
+RUN a2enmod rewrite
+
+# Configurar Apache para que use /var/www/html como directorio raíz
+ENV APACHE_DOCUMENT_ROOT /var/www/html
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf

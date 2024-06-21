@@ -27,7 +27,7 @@ class Router{
         if(in_array($urlActual,$rutas_protegidas) && !$auth){
             header('Location: /');
         }
-
+        
         if($fn){
             call_user_func($fn,$this);
         }else{

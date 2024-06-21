@@ -92,6 +92,10 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.jpg
+*.jpeg
+*.png
+*.gif
 
 # Chutzpah Test files
 _Chutzpah*
@@ -345,6 +349,8 @@ healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
+
+LogsApache/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
