@@ -37,8 +37,12 @@ class LoginController{
 
     }
     public static function logout(){
-        session_start();
-        $_SESSION = [];
+        if(isset($_SESSION)) 
+        {  
+            $_SESSION = [];
+            session_destroy();
+        }
+
         header('Location: /');
     }
 }
